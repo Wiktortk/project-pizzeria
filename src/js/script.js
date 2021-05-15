@@ -91,22 +91,28 @@
       /* START: add event listener to clickable trigger on event click */
       
       clickableTrigger.addEventListener('click', function(event) {
-        
+        //console.log(clickableTrigger);
         /* prevent default action for event */
         
         event.preventDefault();
         
         /* find active product (product that has active class) */
         
-        const activeProduct = document.querySelectorAll(classNames.menuProduct.wrapperActive);
-        console.log(activeProduct);
+        const activeProduct = document.querySelector(classNames.menuProduct.wrapperActive);
+        
         /* if there is active product and it's not thisProduct.element, remove class active from it */
         
-        if(activeProduct != null/*true*/ && activeProduct != thisProduct.element) {
-          activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
-        }
+        if(activeProduct != null && activeProduct != thisProduct.element) {
+          
+          activeProduct.classList.toggle(classNames.menuProduct.wrapperActive);  
+
+        }//else{
+        //thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
+        //}
+        
         /* toggle active class on thisProduct.element */
         thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
+        
       });
     }
   }  
