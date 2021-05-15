@@ -57,11 +57,12 @@
       const thisProduct = this;
 
       thisProduct.id = id;
-      thisProduct.data = data;
+      thisProduct.data = data; //wywolanie instancji
 
       thisProduct.renderInMenu();
+      thisProduct.initAccordion();
 
-      console.log('new Product:', thisProduct.data);
+      //console.log('new Product:', thisProduct.data);
     }
     renderInMenu(){
       const thisProduct = this;
@@ -74,9 +75,39 @@
       thisProduct.element = utils.createDOMFromHTML(generatedHTML);// Troche tego nie rozumiem tu stworzony element DOM zapisujemy od razu jako właściwość naszej instancji
       /* find menu container */
       const menuContainer = document.querySelector(select.containerOf.menu);
-      //console.log(menuContainer);
+      
       /* add element utils.createElementFromHTML to container */
       menuContainer.appendChild(thisProduct.element);
+    }
+    initAccordion(){
+      const thisProduct = this;
+      //console.log(thisProduct);
+
+      /* find the clickable trigger (the element that should react to clicking) */
+      
+      const clickableTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      //console.log(clickableTrigger);
+      
+      /* START: add event listener to clickable trigger on event click */
+      
+      clickableTrigger.addEventListener('click', function(event) {
+        
+        /* prevent default action for event */
+        
+        event.preventDefault();
+        
+        /* find active product (product that has active class) */
+        
+        const activeProduct = document.querySelectorAll(classNames.menuProduct.wrapperActive);
+        console.log(activeProduct);
+        /* if there is active product and it's not thisProduct.element, remove class active from it */
+        
+        if(activeProduct != null/*true*/ && activeProduct != thisProduct.element) {
+          activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
+        }
+        /* toggle active class on thisProduct.element */
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
+      });
     }
   }  
 
